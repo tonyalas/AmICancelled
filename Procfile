@@ -1,1 +1,1 @@
-web: python3 main_script.py app:app
+web: python3 main.py app:app
