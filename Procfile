@@ -1,0 +1,1 @@
+web: python3 main_script.py app:app
