@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
+    <title>Am I Cancelled? Start Page</title>
+</head>
+
+<body>
+
+    <div id="div1">
+        
+        <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo"></h1>
+    </div>
+
+
+    <div id="div2alt">
+        <div id="main">
+            <br>
+            <h2>Get Started:</h2>
+            <a href="{{ authorize_url }}?oauth_token={{ oauth_token }}"><img src="{{ url_for('static', filename='sign_in.png') }}"/></a>
+
+            <h2>What is Am I Cancelled?</h2>
+            <p id="main_text">
+                Am I Cancelled? is a Twitter App that searches through a large bank of words that may have been socially acceptable<br> years ago, but no longer have a place in today's society. It goes through your entire Twitter account history searching for<br> these terms in the word bank.
+                <br>
+            </p>
+            <h2>Why Did I Make This?</h2>
+            <p id="main_text">
+                Am I Cancelled? is a Twitter App that is meant to help those who have forgotten about old tweets <br> they have made in the past that no longer accurately reflect their beliefs anymore. <br> I can only hope that this is used by those who have genuinely changed from their past selves.
+                <br>
+            </p>
+            <h2>Have Word Suggestions?</h2>
+            <p id="main_text">
+                If you wish to know the list of words used or have any words that may not be included in the search,<br>please email me using the email link in the footer of this page.
+            </p>
+    
+            <br><br>
+            <h4>* Disclaimers *</h4>
+            <p id="main_text">
+                Due to the nature of the Twitter Search API, accounts that are private will not be able to use this.
+                <br>
+                I do not collect or store any of your information. All of the authentication is done by the Twitter Standard.
+            </p>
+
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
+        <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link">Visit my Personal Website.</a>
+        </p>
+    </footer>
+
+</body>
+
+
+
+</html>
