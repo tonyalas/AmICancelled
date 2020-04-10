@@ -15,9 +15,9 @@ access_token_url = 'https://api.twitter.com/oauth/access_token'
 authorize_url = 'https://api.twitter.com/oauth/authorize'
 
 # Add your API key here
-consumer_key = 'Wt27ZdXJqECb2JMpUCQ5uhWnD'
+consumer_key = ''
 # Add your API secret key here
-consumer_secret = 'LkuUnE65DuGG5oyzbXKd7M3YEGXNLpyLVwWE33KuRvyGE6F2wV'
+consumer_secret = ''
 
 oauth_store = {}    # a global dict used to access variables in different app.route's
 user_store = {}     # a global dict used to store the authorization variables for the delete_tweet function
