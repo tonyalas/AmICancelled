@@ -164,8 +164,8 @@ def callback():
     except KeyError as e:
         print("Key error raised. Given reason: %s" % str(e))
         return render_template('cancelMe_Error.html', error_message="key error thrown")
-    print(results)
-    print("just printed the results array!")
+    #print(results)
+    #print("just printed the results array!")
     for item in results:
         print("------------------")
         print("tweet found")
