@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
+        <title>Tony Alas' Website</title>
+    </head>
+
+    <body>
+
+        <div id="div1">
+            <h1 class="header">Anthony Rafael Alas</h1>
+        </div>
+
+        <div class="picture">
+            <img src="{{ url_for('static', filename='portrait.png') }}" class="portrait"/>
+        </div>
+
+
+
+        <div id="div2alt">
+            <h1>Connections</h1>
+            <hr>
+            <a href="https://www.linkedin.com/in/tony-alas-00492819b/"><img src="{{ url_for('static', filename='linkedin.png') }}" class="connection_pic"></a>
+            <a href="https://github.com/tonyalas"><img src="{{ url_for('static', filename='github.png') }}" class="connection_pic_github"></a>
+            <a href="{{ url_for('static', filename='alas_resume.pdf') }}"><img src="{{ url_for('static', filename='resume.png') }}" class="connection_pic_resume"></a>
+            <a href="mailto:alas11@uwindsor.ca"><img src="{{ url_for('static', filename='email.png') }}" class="connection_pic_email"></a>
+            <hr>
+            <h1>Current Studies</h1>
+            <hr>
+            <img src="{{ url_for('static', filename='uwinlogo.png') }}" class="uwinlogo"/>
+            <h3>University of Windsor - 3rd Year Undergraduate Student</h3>
+            <h3>BScH Computer Science w/ Software Engineering Specialization</h3>
+            <br>
+            <br>
+            <a href="{{ url_for('start') }}"><p>Click here to go to my Twitter app homepage</p></a>
+            <br>
+        </div>
+
+
+    </body>
+
+    
+
+</html>    
