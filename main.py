@@ -195,7 +195,7 @@ def callback():
         naughtyCount = len(tweets)
 
     # don't keep this token and secret in memory any longer. FIXES THE PROBLEM WHEN REFRESHING PAGE
-    del oauth_store[oauth_token]
+    #del oauth_store[oauth_token]
 
     return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name)
 
