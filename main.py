@@ -151,7 +151,7 @@ def callback():
     tweets_username_global.append("filler")
 
     # the query to search for
-    data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad OR nigga OR niggas OR retard OR slut OR whore OR skank OR bitch OR shit OR shitty OR fucking OR fucker OR motherfucker OR cunt OR faggot OR fag OR queer OR homo OR homos OR stupid OR kill OR suicide OR die) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+    data = '{"query": "(gay OR fuck OR nig OR nigga OR niggas OR retard OR slut OR whore OR skank OR bitch OR shit OR shitty OR fucking OR fucker OR motherfucker OR cunt OR faggot OR fag OR queer OR homo OR homos OR stupid OR kill OR suicide OR die) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
     response = requests.post(endpoint, data=data, headers=headers)
     if response.encoding is None:
