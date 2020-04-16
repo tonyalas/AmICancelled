@@ -56,8 +56,6 @@ def home():
         del tweets_ids_global[:]
     if(len(tweets_username_global) != 0):
         del tweets_username_global[:]
-    if(len(oauth_store) != 0):
-        oauth_store.clear()
     if(len(user_store) != 0):
         user_store.clear()
 
