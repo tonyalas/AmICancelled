@@ -1,25 +1,31 @@
-# my test script for running the python script with Flask for a web app
+# my attempt at using the twauth-web source code and manipulating it for my app's use
 
-from requests_oauthlib import OAuth1Session
 import os
-import json
-from flask import Flask, render_template, request, url_for, jsonify
+from requests_oauthlib import OAuth1Session
+from flask import Flask, render_template, request, url_for
+import oauth2 as oauth
 import twitter
 import requests
+import urllib.request
+import urllib.parse
+import urllib.error
+import json
 
 app = Flask(__name__)
 
-# the necessary URL's to authenticate the user logging in
+app.debug = False
+
 request_token_url = 'https://api.twitter.com/oauth/request_token'
 access_token_url = 'https://api.twitter.com/oauth/access_token'
 authorize_url = 'https://api.twitter.com/oauth/authorize'
+search_url = 'https://api.twitter.com/1.1/tweets/search/30day/search30.json'
 
 # Add your API key here
 consumer_key = 'Wt27ZdXJqECb2JMpUCQ5uhWnD'
 # Add your API secret key here
 consumer_secret = 'LkuUnE65DuGG5oyzbXKd7M3YEGXNLpyLVwWE33KuRvyGE6F2wV'
 
-oauth_store = {}    # a global dict used to access variables in different app.route's
+oauth_store = {}
 user_store = {}     # a global dict used to store the authorization variables for the delete_tweet function
 
 # this will be used for the delete tweets function
@@ -27,27 +33,28 @@ tweets_global = []
 tweets_username_global = []
 tweets_ids_global = []
 
-@app.route("/")
+@app.route('/')
 def home():
+    # note that the external callback URL must be added to the whitelist on
+    # the developer.twitter.com portal, inside the app settings
     app_callback_url = url_for('callback', _external=True)
 
-    # STEP 1: obtain a request token
-    # create an OAuth1 session for signing and posting
-    oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
-    # fetch_request_token is the same as using a signed POST. TYPE: Dict
-    fetch_response = oauth.fetch_request_token(request_token_url)
-    # get the value for the key in the dict, key = "oauth_token"
-    resource_owner_key = fetch_response.get("oauth_token")
-    # get the value for the key in the dict, key = "oauth_token_secret"
-    resource_owner_secret = fetch_response.get("oauth_token_secret")
-    # print the oauth_token to the output
-    print("Got OAuth token: {}".format(resource_owner_key))
-    # store the resource_owner_key and resource_owner_secret into the global dict
-    oauth_store[resource_owner_key] = resource_owner_secret
+    # Generate the OAuth request tokens, then display them
+    consumer = oauth.Consumer(consumer_key, consumer_secret)
+    client = oauth.Client(consumer)
+    resp, content = client.request(request_token_url, "POST", body=urllib.parse.urlencode({
+                                   "oauth_callback": app_callback_url}))
 
-    # STEP 2: Get authorization
-    # returns the authorization URL with new parameters embedded
-    authorization_url = oauth.authorization_url(authorize_url)
+    if resp['status'] != '200':
+        error_message = 'Invalid response, status {status}, {message}'.format(
+            status=resp['status'], message=content.decode('utf-8'))
+        return render_template('cancelMe_Error.html', error_message=error_message)
+
+    request_token = dict(urllib.parse.parse_qsl(content))
+    oauth_token = request_token[b'oauth_token'].decode('utf-8')
+    oauth_token_secret = request_token[b'oauth_token_secret'].decode('utf-8')
+    print("Got OAuth token: {}".format(oauth_token))
+    oauth_store[oauth_token] = oauth_token_secret
 
     # this is to ensure that the lists from the previous user are cleared
     if(len(tweets_global) != 0):
@@ -56,22 +63,19 @@ def home():
         del tweets_ids_global[:]
     if(len(tweets_username_global) != 0):
         del tweets_username_global[:]
-    if(len(user_store) != 0):
-        user_store.clear()
 
-    # return the template with the necessary variables so that the user can click on the Twitter log-in button and go to the authentication page
-    return render_template('cancelMe.html', authorize_url=authorize_url, oauth_token=resource_owner_key, request_token_url=request_token_url)
+    return render_template('cancelMe.html', authorize_url=authorize_url, oauth_token=oauth_token, request_token_url=request_token_url)
 
 
-@app.route("/callback")
+@app.route('/callback')
 def callback():
     # Accept the callback params, get the token and call the API to
     # display the logged-in user's name and handle
     oauth_token = request.args.get('oauth_token')
-    verifier = request.args.get('oauth_verifier')
+    oauth_verifier = request.args.get('oauth_verifier')
     oauth_denied = request.args.get('denied')
 
-    print("oauth verifier is: {}".format(verifier))
+    print("oauth verifier is: {}".format(oauth_verifier))
 
     # if the OAuth request was denied, delete our local token
     # and show an error message
@@ -81,68 +85,49 @@ def callback():
         print("the OAuth request was denied by this user")
         return render_template('cancelMe_Error.html', error_message="the OAuth request was denied by this user")
 
-    if not oauth_token or not verifier:
+    if not oauth_token or not oauth_verifier:
         print("callback param(s) missing")
         return render_template('cancelMe_Error.html', error_message="callback param(s) missing")
 
     # unless oauth_token is still stored locally, return error
     if oauth_token not in oauth_store:
         print("oauth_token not found locally")
-        return render_template('cancelMe_Error.html', error_message="Cannot refresh page after logging in.")
+        return render_template('cancelMe_Error.html', error_message="oauth_token not found locally")
 
-    resource_owner_secret = oauth_store[oauth_token]
+    oauth_token_secret = oauth_store[oauth_token]
 
-    # STEP 3: Get the access token
-    oauth = OAuth1Session(
-        consumer_key,
-        client_secret=consumer_secret,
-        resource_owner_key=oauth_token,
-        resource_owner_secret=resource_owner_secret,
-        verifier=verifier
-    )
-    oauth_tokens = oauth.fetch_access_token(access_token_url)
-    access_token = oauth_tokens["oauth_token"]
-    access_token_secret = oauth_tokens["oauth_token_secret"]
+    # if we got this far, we have both callback params and we have
+    # found this token locally
 
     # store the user's access key and secret in the global dict
     # this should replace the keys everytime a new user logs in 
-    user_store['access_token'] = access_token
-    user_store['access_token_secret'] = access_token_secret
+    user_store['access_token'] = oauth_token
+    user_store['access_token_secret'] = oauth_token_secret
 
-    # ------------------- Percent Encoding ----------------
-    # space = %20
-    # " (Quote) = %22
-    # + (plus) = %2B
-    # = (equal) = %3D
-    # @ (ampersand/at) = %40
-    # ? (question mark) = %3F
-    # -----------------------------------------------------
+    consumer = oauth.Consumer(consumer_key, consumer_secret)
+    token = oauth.Token(oauth_token, oauth_token_secret)
+    token.set_verifier(oauth_verifier)
+    client = oauth.Client(consumer, token)
 
-    # this is necessary to grab the screen name of the person who logged in 
-    accountInfo = oauth.get("https://api.twitter.com/1.1/account/verify_credentials.json")
-    if accountInfo.encoding is None:
-        accountInfo.encoding = "utf-8"
-    for data in accountInfo.iter_lines(decode_unicode=True):
-        if data:
-            jdata = json.loads(data)
-    print("retrieved screen name is")
-    print(jdata["screen_name"])
-    print("---------------")
-    # store the screen name from the verified credentials so that the search query uses the appropriate username when searching
-    screen_name = jdata["screen_name"]
+    resp, content = client.request(access_token_url, "POST")
+    access_token = dict(urllib.parse.parse_qsl(content))
+
+    screen_name = access_token[b'screen_name'].decode('utf-8')
+    user_id = access_token[b'user_id'].decode('utf-8')
+
+    print("screen name is: ")
     print(screen_name)
-    print("---------------")
+    print("user_id is:")
+    print(user_id)
 
     tweets = []  # a list that stores the tweet's text
     tweets_usernames = []  # a list that stores the tweet's author
     tweets_ids = []  # a list that stores the tweet's id
 
-    # from "Integrating premium search twitter developer page"
-    endpoint = "https://api.twitter.com/1.1/tweets/search/30day/search30.json"
-    headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
-    #badwordsList = ["gay", "fuck", "nig", "year", "feel", "bad"]  # list of bad words
-    #--data = '{"query": "can from:tonyalas3"}'
-    #--data = '{"query":' + '"' +badword + ' from:' + screen_name + '"}' # WORKING QUERY
+    # These are the tokens you would store long term, someplace safe
+    real_oauth_token = access_token[b'oauth_token'].decode('utf-8')
+    real_oauth_token_secret = access_token[b'oauth_token_secret'].decode(
+        'utf-8')
 
     # fill the global lists with filler items in the first spots so that it can be used easily when deleting tweets
     # this is because the index received from the html file start counting at 1 instead of 0
@@ -150,10 +135,14 @@ def callback():
     tweets_ids_global.append("filler")
     tweets_username_global.append("filler")
 
-    # the query to search for
-    data = '{"query": "(gay OR fuck OR nig OR nigga OR niggas OR retard OR slut OR whore OR skank OR bitch OR shit OR shitty OR fucking OR fucker OR motherfucker OR cunt OR faggot OR fag OR queer OR homo OR homos OR stupid OR kill OR suicide OR die) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
-    #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
-    response = requests.post(endpoint, data=data, headers=headers)
+    # Call api.twitter.com/1.1/users/show.json?user_id={user_id}
+    headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
+    data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad OR nigga OR niggas OR retard OR slut OR whore OR skank OR bitch OR shit OR shitty OR fucking OR fucker OR motherfucker OR cunt OR faggot OR fag OR queer OR homo OR homos OR stupid OR kill OR suicide OR die) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+
+    real_token = oauth.Token(real_oauth_token, real_oauth_token_secret)
+    real_client = oauth.Client(consumer, real_token)
+
+    response = requests.post(search_url, data=data, headers=headers)
     if response.encoding is None:
         response.encoding = "utf-8"
     for data in response.iter_lines(decode_unicode=True):
@@ -187,7 +176,6 @@ def callback():
         tweets_ids_global.append(tweet_id)
         tweets_username_global.append(tweet_username)
 
-
     # this will check to see if they have any tweets that match the criteria. Output will change depending on this
     if(len(tweets) == 0):
         naughtyBool = False
@@ -196,7 +184,7 @@ def callback():
         naughtyBool = True
         naughtyCount = len(tweets)
 
-    # don't keep this token and secret in memory any longer. FIXES THE PROBLEM WHEN REFRESHING PAGE
+    # don't keep this token and secret in memory any longer
     del oauth_store[oauth_token]
 
     return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name)
@@ -236,7 +224,6 @@ def delete_tweet():
         return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
 
     return ('', 204) # do not refresh the page when the user clicks on the trash button
-
-
-if __name__ == "__main__":
-    app.run(threaded=True)
+  
+if __name__ == '__main__':
+    app.run(debug=True)
