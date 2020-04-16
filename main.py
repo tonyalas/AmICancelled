@@ -56,8 +56,6 @@ def home():
         del tweets_ids_global[:]
     if(len(tweets_username_global) != 0):
         del tweets_username_global[:]
-    if(len(user_store) != 0):
-        user_store.clear()
 
     # return the template with the necessary variables so that the user can click on the Twitter log-in button and go to the authentication page
     return render_template('cancelMe.html', authorize_url=authorize_url, oauth_token=resource_owner_key, request_token_url=request_token_url)
