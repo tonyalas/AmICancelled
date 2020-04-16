@@ -31,9 +31,9 @@
                 <br>
                 <br>
                 {% if naughty == True %}
-                    <h1>You have {{ naughtyCount }} Cancel-Worthy Tweet(s)</h1>
+                    <h1>You have {{ naughtyCount }} cancel-worthy tweet(s)</h1>
                     {% else %}
-                    <h1>You're not cancelled!</h1>
+                    <h1>You are not cancelled!</h1>
                 {% endif %}
                 {% for tweet,id,username in zipped %}
                <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
