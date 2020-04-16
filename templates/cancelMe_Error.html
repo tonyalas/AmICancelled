@@ -19,7 +19,8 @@
             <div id="main">
                 <h1 style="color: red;">There has been an error!<br> Reason: {{ error_message }}</h1>
      
-                 <p><b>If this is your first time seeing this message:</b> please try refreshing this page <br>or go back to the app homepage using the button below and try again.</p>
+                <h2><b>If this is your first time seeing this message after logging in:</b></h2>
+                 <p>please try refreshing this page <br> or go back to the app homepage using the button below and try again.</p>
                  
                  <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
             </div>
