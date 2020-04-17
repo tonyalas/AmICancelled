@@ -35,6 +35,7 @@
                     {% else %}
                     <h1>You are not cancelled!</h1>
                 {% endif %}
+                <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 {% for tweet,id,username in zipped %}
                <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
                 <a href=# id="test"><img src="{{ url_for('static', filename='delete.png') }}" class="delete_button" style="width: 15px; height: 15px;"/></a> -->
