@@ -3,7 +3,15 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename= 'apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename= 'favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename= 'favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename= 'site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
     <title>Am I Cancelled? Start Page</title>
 </head>
 
@@ -28,7 +36,7 @@
             </p>
             <h2>Have Word Suggestions?</h2>
             <p id="main_text">
-                If you wish to know the list of words used or have any words<br>that may not be included in the search,<br>please email me using the email link in the footer of this page.
+                If you wish to know the list of words used or have any words<br>to suggest that may not be included in the search,<br>please email me using the email link in the footer of this page.
             </p>
     
             <br>
@@ -42,9 +50,11 @@
             <p id="main_text">
                 Due to the nature of the Twitter Search API,<br>accounts that are private will not be able to use this.
                 <br><br>
-                I do not collect or store any of your information.<br>All of the authentication is done by the Twitter Standard.
+                I do not collect or store any of your information.<br>All of the authentication is done following the Twitter Standard.
                 <br><br>
                 This is my first official project, so it may not be perfect.<br>Please contact me if there any major bugs.
+                <br><br>
+                You may find that some words are not cancel-worthy in the given context of the tweet, please ignore.
                 <br><br>
                 Lastly, I hope you enjoy it. :)
             </p>
