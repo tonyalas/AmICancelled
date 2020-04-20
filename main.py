@@ -150,8 +150,15 @@ def callback():
     tweets_ids_global.append("filler")
     tweets_username_global.append("filler")
 
+    # list of words in order goes: 
+    # lgbtq+ slurs
+    # racist slurs
+    # slut shaming + seixts words
+    # disability + mental illness slurs
+    # general swear words
+
     # the query to search for
-    data = '{"query": "(gay OR fuck OR nig OR nigga OR niggas OR retard OR slut OR whore OR skank OR bitch OR shit OR shitty OR fucking OR fucker OR motherfucker OR cunt OR faggot OR fag OR queer OR homo OR homos OR stupid OR kill OR suicide OR die) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR retard OR shit OR shitty OR kill OR suicide OR die OR fuck OR fucking OR fucker OR motherfucker OR cunt) from:' + screen_name + '"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
     response = requests.post(endpoint, data=data, headers=headers)
     if response.encoding is None:
