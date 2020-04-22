@@ -233,6 +233,9 @@ def delete_tweet():
     # create an instance of the twitter-python API 
     #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret) # python-twitter
 
+    # create an instance of the TwitterAPI module 
+    tAPI = TwitterAPI(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
+
     # for debugging purposes, output the tweet that was deleted
     print(tweets_ids_global[tweet_number])
     # assign the chosen tweet status_id to this variable
@@ -240,13 +243,15 @@ def delete_tweet():
     print(tweets_global[tweet_number])
 
     # this is the url used to call the destroy API and have the status_id vary depending on what tweet the user has chosen
-    delete_endpoint = 'https://api.twitter.com/1.1/statuses/destroy/%s.json' % (deleteTweetID)
+    #delete_endpoint = 'https://api.twitter.com/1.1/statuses/destroy/%s.json' % (deleteTweetID)
     # the header necessary for the 
-    headers = {"Authorization":"OAuth oauth_consumer_key='Wt27ZdXJqECb2JMpUCQ5uhWnD', "} 
+    #headers = {"Authorization":"OAuth oauth_consumer_key='Wt27ZdXJqECb2JMpUCQ5uhWnD', "} 
     # try to delete the tweet
     try:
+        r = tAPI.request('statuses/destroy/%s' % deleteTweetID)
+        print('success!' if r.status_code == 200 else 'PROBLEM: ' + r.text)
         #api.DestroyStatus(deleteTweetID) 
-        delete_response = requests.post(delete_endpoint)
+        #delete_response = requests.post(delete_endpoint)
     # if user tries to delete tweet twice, catch the error and send them to the error page
     except twitter.error.TwitterError as e:
         print("Twitter error raised. Given reason: %s" % str(e))
