@@ -158,7 +158,7 @@ def callback():
 
     # the query to search for
     data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR kill OR suicide OR kys OR die OR shit OR shitty OR fuck OR fucking OR fucker OR motherfucker OR cunt OR bastard OR asshole OR goddamn OR prick OR twat OR piss) from:' + screen_name + '", "maxResults": "500"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
-    
+
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
     # call the search API using the endpoint, data and headers parameters
@@ -230,15 +230,22 @@ def delete_tweet():
     access_token_secret = user_store['access_token_secret']
 
     # create an instance of the twitter-python API 
-    api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret) # python-twitter
+    #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret) # python-twitter
 
     # for debugging purposes, output the tweet that was deleted
     print(tweets_ids_global[tweet_number])
+    # assign the chosen tweet status_id to this variable
     deleteTweetID = tweets_ids_global[tweet_number]
     print(tweets_global[tweet_number])
+
+    # this is the url used to call the destroy API and have the status_id vary depending on what tweet the user has chosen
+    delete_endpoint = 'https://api.twitter.com/1.1/statuses/destroy/%s.json' % (deleteTweetID)
+    # the header necessary for the 
+    headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
     # try to delete the tweet
     try:
-        api.DestroyStatus(deleteTweetID) 
+        #api.DestroyStatus(deleteTweetID) 
+        delete_response = requests.post(delete_endpoint)
     # if user tries to delete tweet twice, catch the error and send them to the error page
     except twitter.error.TwitterError as e:
         print("Twitter error raised. Given reason: %s" % str(e))
@@ -249,3 +256,5 @@ def delete_tweet():
 
 if __name__ == "__main__":
     app.run(threaded=True)
+    # this is how they use the api variable in the python-twitter documentation examples
+    #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
