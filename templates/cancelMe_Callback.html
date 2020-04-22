@@ -44,6 +44,7 @@
                     <h1>You are not cancelled!</h1>
                 {% endif %}
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
+                <h4>(Do not refresh this page, otherwise an error may occur)</h4>
                 {% for tweet,id,username in zipped %}
                <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
                 <a href=# id="test"><img src="{{ url_for('static', filename='delete.png') }}" class="delete_button" style="width: 15px; height: 15px;"/></a> -->
@@ -73,7 +74,7 @@
 
         <footer id="footer">
             <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
-                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link">Visit my Personal Website.</a>
+                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">Visit my Personal Website.</a>
                 </p>
         </footer>
     </body>
