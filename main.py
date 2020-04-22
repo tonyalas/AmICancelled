@@ -6,6 +6,7 @@ import json
 from flask import Flask, render_template, request, url_for, jsonify
 import twitter
 import requests
+from TwitterAPI import TwitterAPI
 
 app = Flask(__name__)
 
@@ -241,7 +242,7 @@ def delete_tweet():
     # this is the url used to call the destroy API and have the status_id vary depending on what tweet the user has chosen
     delete_endpoint = 'https://api.twitter.com/1.1/statuses/destroy/%s.json' % (deleteTweetID)
     # the header necessary for the 
-    headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
+    headers = {"Authorization":"OAuth oauth_consumer_key='Wt27ZdXJqECb2JMpUCQ5uhWnD', "} 
     # try to delete the tweet
     try:
         #api.DestroyStatus(deleteTweetID) 
