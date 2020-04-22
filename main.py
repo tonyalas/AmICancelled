@@ -4,9 +4,9 @@ from requests_oauthlib import OAuth1Session
 import os
 import json
 from flask import Flask, render_template, request, url_for, jsonify
-import twitter
+#import twitter
 import requests
-from TwitterAPI import TwitterAPI
+#from TwitterAPI import TwitterAPI
 
 app = Flask(__name__)
 
@@ -216,6 +216,7 @@ def callback():
 def internal_server_error(e):
     return render_template('cancelMe_Error.html', error_message='uncaught exception'), 500
 
+# CURRENTLY DISABLED. DOES NOT WORK NICE WITH HEROKU, BUT WORKS LOCALLY.
 @app.route('/delete_tweet', methods=["POST"])
 def delete_tweet():
     # retrieve the index number of which delete button was clicked by the user
@@ -234,7 +235,7 @@ def delete_tweet():
     #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret) # python-twitter
 
     # create an instance of the TwitterAPI module 
-    tAPI = TwitterAPI(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
+    #tAPI = TwitterAPI(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
 
     # for debugging purposes, output the tweet that was deleted
     print(tweets_ids_global[tweet_number])
@@ -247,15 +248,15 @@ def delete_tweet():
     # the header necessary for the 
     #headers = {"Authorization":"OAuth oauth_consumer_key='Wt27ZdXJqECb2JMpUCQ5uhWnD', "} 
     # try to delete the tweet
-    try:
-        r = tAPI.request('statuses/destroy/%s' % deleteTweetID)
-        print('success!' if r.status_code == 200 else 'PROBLEM: ' + r.text)
+    #try:
+        #r = tAPI.request('statuses/destroy/%s' % deleteTweetID)
+        #print('success!' if r.status_code == 200 else 'PROBLEM: ' + r.text)
         #api.DestroyStatus(deleteTweetID) 
         #delete_response = requests.post(delete_endpoint)
     # if user tries to delete tweet twice, catch the error and send them to the error page
-    except twitter.error.TwitterError as e:
-        print("Twitter error raised. Given reason: %s" % str(e))
-        return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
+    #except twitter.error.TwitterError as e:
+     #   print("Twitter error raised. Given reason: %s" % str(e))
+      #  return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
 
     return ('', 204) # do not refresh the page when the user clicks on the trash button
 
