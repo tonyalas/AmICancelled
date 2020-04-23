@@ -93,6 +93,11 @@ def callback():
 
     resource_owner_secret = oauth_store[oauth_token]
 
+    # testing
+    user_store['oauth_token'] = oauth_token
+    user_store['resource_owner_secret'] = resource_owner_secret
+    user_store['verifier'] = verifier
+
     # STEP 3: Get the access token
     oauth = OAuth1Session(
         consumer_key,
@@ -231,6 +236,19 @@ def delete_tweet():
     access_token = user_store['access_token']
     access_token_secret = user_store['access_token_secret']
 
+    oauth_token = user_store['oauth_token']
+    resource_owner_secret = user_store['resource_owner_secret']
+    verifier = user_store['verifier']
+
+    oauth = OAuth1Session(
+        consumer_key,
+        client_secret=consumer_secret,
+        resource_owner_key=oauth_token,
+        resource_owner_secret=resource_owner_secret,
+        verifier=verifier
+    )
+    
+
     # create an instance of the twitter-python API 
     #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret) # python-twitter
 
@@ -248,15 +266,18 @@ def delete_tweet():
     # the header necessary for the 
     #headers = {"Authorization":"OAuth oauth_consumer_key='Wt27ZdXJqECb2JMpUCQ5uhWnD', "} 
     # try to delete the tweet
-    #try:
+    try:
         #r = tAPI.request('statuses/destroy/%s' % deleteTweetID)
         #print('success!' if r.status_code == 200 else 'PROBLEM: ' + r.text)
         #api.DestroyStatus(deleteTweetID) 
         #delete_response = requests.post(delete_endpoint)
-    # if user tries to delete tweet twice, catch the error and send them to the error page
+        delete = oauth.post('https://api.twitter.com/1.1/statuses/destroy/%s.json' % deleteTweetID)
+    #if user tries to delete tweet twice, catch the error and send them to the error page
     #except twitter.error.TwitterError as e:
+    except:
+        print("Error occurred while trying to delete tweet.")
      #   print("Twitter error raised. Given reason: %s" % str(e))
-      #  return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
+        return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
 
     return ('', 204) # do not refresh the page when the user clicks on the trash button
 
