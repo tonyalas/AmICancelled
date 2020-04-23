@@ -112,8 +112,8 @@ def callback():
 
     # store the user's access key and secret in the global dict
     # this should replace the keys everytime a new user logs in 
-    user_store['access_token'] = access_token
-    user_store['access_token_secret'] = access_token_secret
+    #user_store['access_token'] = access_token
+    #user_store['access_token_secret'] = access_token_secret
 
     # ------------------- Percent Encoding ----------------
     # space = %20
@@ -233,8 +233,8 @@ def delete_tweet():
     print("clicked!")
 
     # get the user's access tokens (and secret token) from the global dict that has it stored
-    access_token = user_store['access_token']
-    access_token_secret = user_store['access_token_secret']
+    #access_token = user_store['access_token']
+    #access_token_secret = user_store['access_token_secret']
 
     oauth_token = user_store['oauth_token']
     resource_owner_secret = user_store['resource_owner_secret']
