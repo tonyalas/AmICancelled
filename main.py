@@ -175,7 +175,7 @@ def callback():
     # catch the potential KeyError and send user to an error page
     except KeyError as e:
         print("Key Error raised. Given reason: %s" % str(e))
-        return render_template('cancelMe_Error.html', error_message="Key Error Thrown")
+        return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
     #print(results)
     #print("just printed the results array!")
     for item in results:
