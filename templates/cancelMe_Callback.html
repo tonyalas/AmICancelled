@@ -58,12 +58,12 @@
                     temporarily disable delete button since it does not work on heroku
                     given error is something like: cannot found twitter.API() module
                     maybe try using the generic twitter API delete call
-                
+                -->
                 <form action="{{ url_for('delete_tweet') }}" method="POST">
                     <input type="hidden" id="index" name="index" value="{{ loop.index }}">
                     <input type="image" name="submit" src="{{ url_for('static', filename='delete.png') }}" alt="submit" style="width: 15px; height: 15px;" onclick="success()">
                 </form>
-                -->
+                
                 <br>
                 {% endfor %}
 
