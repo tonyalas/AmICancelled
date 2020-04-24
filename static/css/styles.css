@@ -11,8 +11,9 @@ body {
 h1 {
     font-family: 'Cambria', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     display: inline;
+    padding-left: 25px;
 }
 h2 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
