@@ -53,6 +53,10 @@ p {
     height: 25px;
 }
 
+#inner_div {
+    background-color: #91CCFF;
+}
+
 #main {
     overflow: auto;
     padding-bottom: 100px;
