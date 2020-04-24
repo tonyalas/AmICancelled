@@ -30,8 +30,10 @@ p {
 }
 
 #div1 {
+    display: flex;
     background-color: #4D6180;
     width: 100%;
+    height: 100px;
 }
 
 #div2 {
