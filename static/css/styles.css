@@ -70,6 +70,7 @@ h1 {
 .header {
     color: white;
     padding-top: 30px;
+    text-align: left;
 }
 
 .portrait {
