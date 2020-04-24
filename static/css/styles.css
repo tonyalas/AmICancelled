@@ -35,7 +35,7 @@ p {
 
 #div1 {
     display: flex;
-    background-color: #55ACEE;
+    background-color: #1DA1F2;
     width: 100%;
     height: 100px;
 }
@@ -50,15 +50,9 @@ p {
     background-color: aliceblue;
     min-height: 100%;
 }
-#div3 {
-    display: flex;
-    background-color: #263040;
-    width: 100%;
-    height: 25px;
-}
 
 #inner_div {
-    background-color: #172E40;
+    background-color: #657786;
     padding: 20px;
 }
 
