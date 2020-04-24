@@ -12,8 +12,7 @@ h1 {
     font-family: 'Cambria', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0 auto;
     text-align: left;
-    display: inline;
-    padding-left: 25px;
+    display: block;
 }
 h2 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
