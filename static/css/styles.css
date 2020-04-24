@@ -52,8 +52,12 @@ p {
 }
 
 #inner_div {
-    background-color: #657786;
+    background-color: #FFFFFF;
     padding: 20px;
+}
+
+#inner_2 {
+    background-color: #657786;
 }
 
 #main {
