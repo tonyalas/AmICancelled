@@ -47,12 +47,12 @@ p {
 #div2alt {
     display: block;
     text-align: center;
-    background-color: #0F5480;
+    background-color: aliceblue;
     min-height: 100%;
 }
 
 #inner_div {
-    background-color: #657786;
+    background-color: #0F5480;
     padding: 20px;
 }
 
