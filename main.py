@@ -165,7 +165,7 @@ def callback():
 
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
-    pager = TwitterPager(api, 'tweets/search/fullarchive/searchFull', data)
+    pager = TwitterPager(api, 'tweets/search/fullarchive/:searchFull', data)
     for item in pager.get_iterator():
         print("------------------")
         print("tweet found")
