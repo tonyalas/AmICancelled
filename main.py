@@ -139,7 +139,7 @@ def callback():
     tweets_ids = []  # a list that stores the tweet's id
 
     # from "Integrating premium search twitter developer page"
-    endpoint = "https://api.twitter.com/1.1/tweets/search/30day/search30.json"
+    endpoint = "https://api.twitter.com/1.1/tweets/search/fullarchive/searchFull.json"
     headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
     #--data = '{"query": "can from:tonyalas3"}'
     #--data = '{"query":' + '"' +badword + ' from:' + screen_name + '"}' # WORKING QUERY
