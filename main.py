@@ -174,9 +174,10 @@ def callback():
     try:
         results = jdata["results"]
         # check to see if there is a next token
-        nextToken = jdata["next"]
-        print("next token found")
-        print(nextToken)
+        if 'next' in jdata:
+            nextToken = jdata["next"]
+            print("next token found")
+            print(nextToken)
     # catch the potential KeyError and send user to an error page
     except KeyError as e:
         print("Key Error raised. Given reason: %s" % str(e))
@@ -184,56 +185,15 @@ def callback():
     #print(results)
     #print("just printed the results array!")
     for item in results:
-        print("------------------")
-        print("tweet found")
+        #print("------------------")
+        #print("tweet found")
         tweet_username = item['user']['screen_name']
-        print(tweet_username)
+        #print(tweet_username)
         tweet_text = item['text']
-        print(tweet_text)
+        #print(tweet_text)
         tweet_id = item['id_str']
-        print(tweet_id)
-        print("------------------")
-        # add the above items to their corresponding lists
-        tweets.append(tweet_text) # add username to the corresponding list
-        tweets_ids.append(tweet_id) # add the tweet id to the corresponding list
-        tweets_usernames.append(tweet_username) # add the tweet's author (username) to the corresponding list
-        # add the same values to the global lists for the delete function at the end of the file
-        tweets_global.append(tweet_text)
-        tweets_ids_global.append(tweet_id)
-        tweets_username_global.append(tweet_username)
-
-    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR kill OR suicide OR kys OR die OR shit OR shitty OR fuck OR fucking OR fucker OR motherfucker OR cunt OR bastard OR asshole OR goddamn OR prick OR twat OR piss) from:' + screen_name + '", "maxResults": "500", "fromDate": "200603220000", "next":' + nextToken + '}'
-    # call the search API using the endpoint, data and headers parameters
-    response = requests.post(endpoint, data=data, headers=headers)
-    if response.encoding is None:
-        response.encoding = "utf-8"
-    for data in response.iter_lines(decode_unicode=True):
-        if data:
-            jdata = json.loads(data)
-            print(jdata)
-    # check to make sure results isn't empty. if it is, send to an error page
-    try:
-        results = jdata["results"]
-        # check to see if there is a next token
-        nextToken = jdata["next"]
-        print("next token found")
-        print(nextToken)
-    # catch the potential KeyError and send user to an error page
-    except KeyError as e:
-        print("Key Error raised. Given reason: %s" % str(e))
-        return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
-    #print(results)
-    #print("just printed the results array!")
-    for item in results:
-        print("------------------")
-        print("tweet found")
-        tweet_username = item['user']['screen_name']
-        print(tweet_username)
-        tweet_text = item['text']
-        print(tweet_text)
-        tweet_id = item['id_str']
-        print(tweet_id)
-        print("------------------")
+        #print(tweet_id)
+        #print("------------------")
         # add the above items to their corresponding lists
         tweets.append(tweet_text) # add username to the corresponding list
         tweets_ids.append(tweet_id) # add the tweet id to the corresponding list
