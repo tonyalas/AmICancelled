@@ -6,7 +6,7 @@ import json
 from flask import Flask, render_template, request, url_for, jsonify
 #import twitter
 import requests
-#from TwitterAPI import TwitterAPI
+from TwitterAPI import TwitterAPI, TwitterPager
 
 app = Flask(__name__)
 
@@ -138,6 +138,9 @@ def callback():
     tweets_usernames = []  # a list that stores the tweet's author
     tweets_ids = []  # a list that stores the tweet's id
 
+    # TwitterAPI instance
+    api = TwitterAPI(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
+
     # from "Integrating premium search twitter developer page"
     endpoint = "https://api.twitter.com/1.1/tweets/search/fullarchive/searchFull.json"
     headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
@@ -162,23 +165,8 @@ def callback():
 
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
-    # call the search API using the endpoint, data and headers parameters
-    response = requests.post(endpoint, data=data, headers=headers)
-    if response.encoding is None:
-        response.encoding = "utf-8"
-    for data in response.iter_lines(decode_unicode=True):
-        if data:
-            jdata = json.loads(data)
-    # check to make sure results isn't empty. if it is, send to an error page
-    try:
-        results = jdata["results"]
-    # catch the potential KeyError and send user to an error page
-    except KeyError as e:
-        print("Key Error raised. Given reason: %s" % str(e))
-        return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
-    #print(results)
-    #print("just printed the results array!")
-    for item in results:
+    pager = TwitterPager(api, 'tweets/search/fullarchive/searchFull', data)
+    for item in pager.get_iterator():
         print("------------------")
         print("tweet found")
         tweet_username = item['user']['screen_name']
@@ -196,6 +184,8 @@ def callback():
         tweets_global.append(tweet_text)
         tweets_ids_global.append(tweet_id)
         tweets_username_global.append(tweet_username)
+
+
 
 
     # this will check to see if they have any tweets that match the criteria. Output will change depending on this
