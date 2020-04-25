@@ -6,7 +6,7 @@ import json
 from flask import Flask, render_template, request, url_for, jsonify
 #import twitter
 import requests
-from TwitterAPI import TwitterAPI, TwitterPager
+#from TwitterAPI import TwitterAPI
 
 app = Flask(__name__)
 
@@ -138,9 +138,6 @@ def callback():
     tweets_usernames = []  # a list that stores the tweet's author
     tweets_ids = []  # a list that stores the tweet's id
 
-    # TwitterAPI instance
-    api = TwitterAPI(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
-
     # from "Integrating premium search twitter developer page"
     endpoint = "https://api.twitter.com/1.1/tweets/search/fullarchive/searchFull.json"
     headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
@@ -161,12 +158,27 @@ def callback():
     # general swear words
 
     # the query to search for
-    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR niggers OR n-word OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR stripper OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR suicide OR kys OR fucking OR fucker OR motherfucker OR cunt OR bastard OR prick OR twat) from:' + screen_name + '", "maxResults": "500", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR niggers OR n-word OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR stripper OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR suicide OR kys OR fucking OR fucker OR motherfucker OR cunt OR bastard OR prick OR twat) from:' + screen_name + '", "maxResults": "499", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
 
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
-    pager = TwitterPager(api, 'tweets/search/fullarchive/:searchFull', data)
-    for item in pager.get_iterator():
+    # call the search API using the endpoint, data and headers parameters
+    response = requests.post(endpoint, data=data, headers=headers)
+    if response.encoding is None:
+        response.encoding = "utf-8"
+    for data in response.iter_lines(decode_unicode=True):
+        if data:
+            jdata = json.loads(data)
+    # check to make sure results isn't empty. if it is, send to an error page
+    try:
+        results = jdata["results"]
+    # catch the potential KeyError and send user to an error page
+    except KeyError as e:
+        print("Key Error raised. Given reason: %s" % str(e))
+        return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
+    #print(results)
+    #print("just printed the results array!")
+    for item in results:
         print("------------------")
         print("tweet found")
         tweet_username = item['user']['screen_name']
@@ -184,8 +196,6 @@ def callback():
         tweets_global.append(tweet_text)
         tweets_ids_global.append(tweet_id)
         tweets_username_global.append(tweet_username)
-
-
 
 
     # this will check to see if they have any tweets that match the criteria. Output will change depending on this
