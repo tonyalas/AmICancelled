@@ -45,7 +45,7 @@
                     <h1>You are not cancelled!</h1>
                 {% endif %}
                 {% if nextTokenBool == True %}
-                    <h3>There were more than {{ naughtyCount }} tweets found, please delete some then sign in again.</h3>
+                    <h3>There were more than {{ naughtyCount }} tweets found, please delete some then sign in again to get the rest.</h3>
                 {% endif %}
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 {% for tweet,id,username in zipped %}
