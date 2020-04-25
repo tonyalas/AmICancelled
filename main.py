@@ -162,9 +162,6 @@ def callback():
 
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
-    # is there more to call?
-    nextTokenBool = False
-
     # call the search API using the endpoint, data and headers parameters
     response = requests.post(endpoint, data=data, headers=headers)
     if response.encoding is None:
@@ -172,15 +169,14 @@ def callback():
     for data in response.iter_lines(decode_unicode=True):
         if data:
             jdata = json.loads(data)
+            print(jdata)
     # check to make sure results isn't empty. if it is, send to an error page
     try:
         results = jdata["results"]
         # check to see if there is a next token
-        if 'next' in jdata:
-            nextToken = jdata["next"]
-            print("next token found")
-            print(nextToken)
-            nextTokenBool = True
+        nextToken = jdata["next"]
+        print("next token found")
+        print(nextToken)
     # catch the potential KeyError and send user to an error page
     except KeyError as e:
         print("Key Error raised. Given reason: %s" % str(e))
