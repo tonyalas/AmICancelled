@@ -33,7 +33,7 @@
             <div id="main">
                 <br>
                 <h1 style="color: green;">Successfully authenticated @{{screen_name}}!</h1>
-                <p id="main_text">(Do not refresh this page, otherwise an error may occur. Tweets may take time to load.<br>Don't forget to keep scrolling down the page if there is an empty section!)</p>
+                <p id="main_text">(Do not refresh this page, otherwise an error may occur. Tweets may take time to load.</p>
                 <p id="main_text"><b>Protected Twitter accounts will not work with this due to how the Twitter search works.</b></p>
                <br>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
@@ -48,6 +48,7 @@
                     <h3>There were more than {{ naughtyCount }} tweets found, please delete some then sign in again to get the rest.</h3>
                 {% endif %}
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
+                <h4>Tip 2: Don't forget to keep scrolling down the page if there is an empty section.</h4>
                 {% for tweet,id,username in zipped %}
                <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
                 <a href=# id="test"><img src="{{ url_for('static', filename='delete.png') }}" class="delete_button" style="width: 15px; height: 15px;"/></a> -->
