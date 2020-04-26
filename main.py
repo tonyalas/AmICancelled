@@ -118,7 +118,7 @@ def callback():
     # @ (ampersand/at) = %40
     # ? (question mark) = %3F
     # -----------------------------------------------------
-
+    protectedAccountBool = False
     # this is necessary to grab the screen name of the person who logged in 
     accountInfo = oauth.get("https://api.twitter.com/1.1/account/verify_credentials.json")
     if accountInfo.encoding is None:
