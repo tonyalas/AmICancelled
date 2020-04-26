@@ -189,15 +189,15 @@ def callback():
     #print(results)
     #print("just printed the results array!")
     for item in results:
-        print("------------------")
-        print("tweet found")
+        #print("------------------")
+        #print("tweet found")
         tweet_username = item['user']['screen_name']
-        print(tweet_username)
+        #print(tweet_username)
         tweet_text = item['text']
-        print(tweet_text)
+        #print(tweet_text)
         tweet_id = item['id_str']
-        print(tweet_id)
-        print("------------------")
+        #print(tweet_id)
+        #print("------------------")
         # add the above items to their corresponding lists
         tweets.append(tweet_text) # add username to the corresponding list
         tweets_ids.append(tweet_id) # add the tweet id to the corresponding list
