@@ -118,7 +118,7 @@ def callback():
     # @ (ampersand/at) = %40
     # ? (question mark) = %3F
     # -----------------------------------------------------
-    protectedAccountBool = False
+
     # this is necessary to grab the screen name of the person who logged in 
     accountInfo = oauth.get("https://api.twitter.com/1.1/account/verify_credentials.json")
     if accountInfo.encoding is None:
@@ -132,8 +132,6 @@ def callback():
     # store the screen name from the verified credentials so that the search query uses the appropriate username when searching
     screen_name = jdata["screen_name"]
     print(screen_name)
-    if jdata["protected"] == "true":
-        protectedAccountBool = True
     print("---------------")
 
     tweets = []  # a list that stores the tweet's text
@@ -225,7 +223,7 @@ def callback():
     # don't keep this token and secret in memory any longer. FIXES THE PROBLEM WHEN REFRESHING PAGE
     del oauth_store[oauth_token]
 
-    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool, protectedAccountBool=protectedAccountBool)
+    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool)
 
 
 @app.errorhandler(500)

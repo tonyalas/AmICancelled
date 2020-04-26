@@ -36,10 +36,7 @@
                 <br>
                 <h1 style="color: green;">Successfully authenticated @{{screen_name}}!</h1>
                 <p id="main_text">Do not refresh this page, otherwise an error may occur. Tweets may take time to load.</p>
-                {% if protectedAccountBool == True %}
-                    <h2>Protected Twitter accounts will not work with this due to how the Twitter search works.</h2>
-                    <p>Please temporarily make your account public and try again. You may make it private after your tweets are fetched.</p>
-                {% endif %}
+                <p id="main_text"><b>Protected Twitter accounts will not work with this due to how the Twitter search works.</b></p>
                <br>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
                 <br>
