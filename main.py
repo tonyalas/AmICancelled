@@ -42,7 +42,7 @@ def home():
     # get the value for the key in the dict, key = "oauth_token_secret"
     resource_owner_secret = fetch_response.get("oauth_token_secret")
     # print the oauth_token to the output
-    print("Got OAuth token: {}".format(resource_owner_key))
+    print("Page initially loaded. Got OAuth token: {}".format(resource_owner_key))
     # store the resource_owner_key and resource_owner_secret into the global dict
     oauth_store[resource_owner_key] = resource_owner_secret
 
