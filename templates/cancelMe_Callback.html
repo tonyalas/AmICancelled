@@ -74,10 +74,12 @@
                 
                 <div id="container"></div>
                 {% for tweet,id,username in zipped %}
+                    <script>
                     twttr.widgets.createTweet(
-                        {{id}},
+                        id,
                         document.getElementById('container')
                     );
+                    </script>
                     <br>
                 {% endfor %}
                
