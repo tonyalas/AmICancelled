@@ -12,22 +12,6 @@
         <meta name="theme-color" content="#ffffff">
 
         <script data-ad-client="ca-pub-2309537375318258" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>window.twttr = (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-              t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-          
-            t._e = [];
-            t.ready = function(f) {
-              t._e.push(f);
-            };
-          
-            return t;
-          }(document, "script", "twitter-wjs"));</script>
 
         <title>Am I Cancelled?</title>
         
@@ -72,22 +56,19 @@
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 <h4>Tip 2: Occasionally, tweets won't load at the very top, so don't forget to keep scrolling down the page if there is an empty section.</h4>
                 
-                <div id="container"></div>
                 {% for tweet,id,username in zipped %}
-                    <script>
-                    twttr.widgets.createTweet(
-                        {{id}},
-                        document.getElementById('container')
-                    );
-                    </script>
-                    <br>
+               <br>
+               <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
+                   <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
+                </blockquote>
+                <br>
                 {% endfor %}
-               
 
 
             </div>
         </div>
 
+        <script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script>
 
         <footer id="footer">
             <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
