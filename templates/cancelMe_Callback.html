@@ -72,15 +72,14 @@
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 <h4>Tip 2: Occasionally, tweets won't load at the very top, so don't forget to keep scrolling down the page if there is an empty section.</h4>
                 
-                <div id="container">
-                    {% for tweet,id,username in zipped %}
-                        twttr.widgets.createTweet(
-                            {{id}},
-                            document.getElementById('container')
-                        );
-                        <br>
-                    {% endfor %}
-                </div>
+                <div id="container"></div>
+                {% for tweet,id,username in zipped %}
+                    twttr.widgets.createTweet(
+                        {{id}},
+                        document.getElementById('container')
+                    );
+                    <br>
+                {% endfor %}
                
 
 
