@@ -74,25 +74,32 @@
                 <br>
                 <div id="container"></div>
 
-                {% for tweet,id,username in zipped %}
-                <br>
-                    <script>
-                        twttr.widgets.createTweet(
-                            '{{id}}',
-                            document.getElementById('container'),
-                            {
-                                align: 'center'
-                            }
-                        );
-                    </script>
+                {% if naughtyCount <= 50 %}
                     <br>
-                {% endfor %}
-
+                    <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
+                        <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
+                    </blockquote>
+                    <br>
+                {% else %}
+                    {% for tweet,id,username in zipped %}
+                    <br>
+                        <script>
+                            twttr.widgets.createTweet(
+                                '{{id}}',
+                                document.getElementById('container'),
+                                {
+                                    align: 'center'
+                                }
+                            );
+                        </script>
+                        <br>
+                    {% endfor %}
+                {% endif %}
 
             </div>
         </div>
 
-
+        <script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script>
 
         <footer id="footer">
             <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
