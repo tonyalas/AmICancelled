@@ -52,23 +52,12 @@
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 <h4>Tip 2: Occasionally, tweets won't load at the very top, so don't forget to keep scrolling down the page if there is an empty section.</h4>
                 {% for tweet,id,username in zipped %}
-               <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
-                <a href=# id="test"><img src="{{ url_for('static', filename='delete.png') }}" class="delete_button" style="width: 15px; height: 15px;"/></a> -->
+
                <br>
                <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
                    <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
                 </blockquote>
 
-                <!--
-                    temporarily disable delete button since it does not work on heroku
-                    given error is something like: cannot found twitter.API() module
-                    maybe try using the generic twitter API delete call
-                
-                <form action="{{ url_for('delete_tweet') }}" method="POST">
-                    <input type="hidden" id="index" name="index" value="{{ loop.index }}">
-                    <input type="image" name="submit" src="{{ url_for('static', filename='delete.png') }}" alt="submit" style="width: 15px; height: 15px;" onclick="success()">
-                </form>
-                -->
                 <br>
                 {% endfor %}
 
