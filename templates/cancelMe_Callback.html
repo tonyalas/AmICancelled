@@ -74,27 +74,20 @@
                 <br>
                 <div id="container"></div>
 
-                {% if naughtyCount <= 50 %}
+                {% for tweet,id,username in zipped %}
+                <br>
+                    <script>
+                        twttr.widgets.createTweet(
+                            '{{id}}',
+                            document.getElementById('container'),
+                            {
+                                align: 'center'
+                            }
+                        );
+                    </script>
                     <br>
-                    <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
-                        <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
-                    </blockquote>
-                    <br>
-                {% else %}
-                    {% for tweet,id,username in zipped %}
-                    <br>
-                        <script>
-                            twttr.widgets.createTweet(
-                                '{{id}}',
-                                document.getElementById('container'),
-                                {
-                                    align: 'center'
-                                }
-                            );
-                        </script>
-                        <br>
-                    {% endfor %}
-                {% endif %}
+                {% endfor %}
+
 
             </div>
         </div>
