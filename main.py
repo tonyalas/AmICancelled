@@ -206,7 +206,7 @@ def callback():
         tweets_global.append(tweet_text)
         tweets_ids_global.append(tweet_id)
         tweets_username_global.append(tweet_username)
-        if(len(tweets) == 299):
+        if(len(tweets) == 300):
             break;
 
 
