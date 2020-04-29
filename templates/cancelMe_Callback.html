@@ -67,8 +67,8 @@
                     <h1>You have {{ naughtyCount }} cancel-worthy tweet(s)</h1>
                     {% endif %}
 
-                    {% if highlyOffensiveWordCount <= 20 %}
-                    <h2 style="color: green;">Based on the words found in your tweets, you have a low chance of being cancelled!</h2>
+                    {% if highlyOffensiveWordCount < 3 %}
+                    <h2 style="color: green;">Based on the words found in your tweets, you have a moderate chance of being cancelled!</h2>
                     {% else %}
                     <h2 style="color: red;">Based on the words found in your tweets, you have a high chance of being cancelled!</h2>
                     {% endif %}
