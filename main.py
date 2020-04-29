@@ -138,6 +138,9 @@ def callback():
     tweets_usernames = []  # a list that stores the tweet's author
     tweets_ids = []  # a list that stores the tweet's id
 
+    # this is the list that is a subset of the words below (inside of data) that are the worst of the worst
+    highlyOffensiveWords = ["gay", "faggot", "fag", "queer", "tranny", "dyke", "nigger", "nigga", "chink", "slut", "whore", "feminazi", "retard", "retarded", "tard", "suicide"]
+
     # from "Integrating premium search twitter developer page"
     endpoint = "https://api.twitter.com/1.1/tweets/search/fullarchive/searchFull.json"
     headers = {"Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAALyrDAEAAAAAmy%2F1oHMkGuirodRGpXt1SorL3mU%3DGN4H2cLxc2jQad2s7yCxNpiOxVRmfwQQ1nnVDmJrgUnkph0prS", "Content-Type": "application/json"} 
@@ -186,6 +189,7 @@ def callback():
     except KeyError as e:
         print("Key Error raised. Given reason: %s" % str(e))
         return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
+    highlyOffensiveWordCount = 0
     #print(results)
     #print("just printed the results array!")
     for item in results:
@@ -194,6 +198,9 @@ def callback():
         tweet_username = item['user']['screen_name']
         #print(tweet_username)
         tweet_text = item['text']
+        for badWord in highlyOffensiveWords:
+            if badWord in tweet_text:
+                highlyOffensiveWordCount += 1
         #print(tweet_text)
         tweet_id = item['id_str']
         #print(tweet_id)
@@ -219,11 +226,12 @@ def callback():
         naughtyBool = True
         naughtyCount = len(tweets)
         print(naughtyCount, " tweets found")
+        print(highlyOffensiveWordCount, " highly offensive words found.")
 
     # don't keep this token and secret in memory any longer. FIXES THE PROBLEM WHEN REFRESHING PAGE
     del oauth_store[oauth_token]
 
-    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool)
+    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool, highlyOffensiveWordCount=highlyOffensiveWordCount)
 
 
 @app.errorhandler(500)
