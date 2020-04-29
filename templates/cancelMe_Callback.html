@@ -60,19 +60,11 @@
                 <br>
                 <br>
                 {% if naughty == True %}
-                
                     {% if nextTokenBool == True %}
                     <h1>You have 300+ cancel-worthy tweet(s)</h1>
                     {% else %}
                     <h1>You have {{ naughtyCount }} cancel-worthy tweet(s)</h1>
                     {% endif %}
-
-                    {% if highlyOffensiveWordCount < 3 %}
-                    <h2 style="color: green;">Based on the words found in your tweets, you have a moderate chance of being cancelled!</h2>
-                    {% else %}
-                    <h2 style="color: red;">Based on the words found in your tweets, you have a high chance of being cancelled!</h2>
-                    {% endif %}
-
                 {% else %}
                     <h1>You are not cancelled!</h1>
                 {% endif %}

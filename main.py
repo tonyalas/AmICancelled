@@ -139,7 +139,7 @@ def callback():
     tweets_ids = []  # a list that stores the tweet's id
 
     # this is the list that is a subset of the words below (inside of data) that are the worst of the worst
-    highlyOffensiveWords = ["gay", "faggot", "fag", "queer", "tranny", "dyke", "nigger", "nigga", "chink", "slut", "whore", "feminazi", "retard", "retarded", "tard", "suicide", "paki"]
+    highlyOffensiveWords = ["gay", "faggot", "fag", "queer", "tranny", "dyke", "nigger", "nigga", "chink", "slut", "whore", "feminazi", "retard", "retarded", "tard", "suicide"]
 
     # from "Integrating premium search twitter developer page"
     endpoint = "https://api.twitter.com/1.1/tweets/search/fullarchive/searchFull.json"
@@ -161,7 +161,7 @@ def callback():
     # general swear words
 
     # the query to search for
-    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR kill OR suicide OR kys OR shit OR shitty OR fucking OR motherfucker OR cunt OR bastard OR asshole OR goddamn OR prick OR twat OR dickhead) from:' + screen_name + '", "maxResults": "301", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+    data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR kill OR suicide OR kys OR shit OR shitty OR fucking OR motherfucker OR cunt OR bastard OR asshole OR goddamn OR prick OR twat) from:' + screen_name + '", "maxResults": "301", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
 
     #data = '{"query": "(gay OR fuck OR nig OR year OR feel OR bad) from:' + screen_name + '", "fromDate": "202003030000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST) DO NOT USE fromDate parameter wit 30-day search otherwise it will break it
 
@@ -198,9 +198,9 @@ def callback():
         tweet_username = item['user']['screen_name']
         #print(tweet_username)
         tweet_text = item['text']
-        for badWord in highlyOffensiveWords:
-            if badWord in tweet_text:
-                highlyOffensiveWordCount += 1
+        #for badWord in highlyOffensiveWords:
+         #   if badWord in tweet_text:
+          #      highlyOffensiveWordCount += 1
         #print(tweet_text)
         tweet_id = item['id_str']
         #print(tweet_id)
@@ -226,12 +226,12 @@ def callback():
         naughtyBool = True
         naughtyCount = len(tweets)
         print(naughtyCount, " tweets found")
-        print(highlyOffensiveWordCount, " highly offensive words found.")
+        #print(highlyOffensiveWordCount, " highly offensive words found.")
 
     # don't keep this token and secret in memory any longer. FIXES THE PROBLEM WHEN REFRESHING PAGE
     del oauth_store[oauth_token]
 
-    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool, highlyOffensiveWordCount=highlyOffensiveWordCount)
+    return render_template('cancelMe_Callback.html', zipped=zip(tweets, tweets_ids, tweets_usernames), naughty=naughtyBool, naughtyCount=naughtyCount, screen_name=screen_name, nextTokenBool=nextTokenBool)
 
 
 @app.errorhandler(500)
