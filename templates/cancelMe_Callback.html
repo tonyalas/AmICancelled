@@ -53,7 +53,8 @@
                 <br>
                 <h1 style="color: green;">Successfully authenticated @{{screen_name}}!</h1>
                 <p id="main_text">Do not refresh this page, otherwise an error may occur.</p>
-                <p id="main_text"><b>Protected Twitter accounts will not work with this due to how the Twitter search works.</b></p>
+                <p id="main_text"><b>If your account is on private, please temporarily make it public and try this again.</b></p>
+                <!--<p id="main_text"><b>Protected Twitter accounts will not work with this due to how the Twitter search works.</b></p> -->
                <br>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
                 <br>
@@ -67,9 +68,9 @@
                     {% endif %}
 
                     {% if highlyOffensiveWordCount <= 20 %}
-                    <h2>Based on the words found in your tweets, you have a low chance of being cancelled!</h2>
+                    <h2 style="color: green;">Based on the words found in your tweets, you have a low chance of being cancelled!</h2>
                     {% else %}
-                    <h2>Based on the words found in your tweets, you have a high chance of being cancelled!</h2>
+                    <h2 style="color: red;">Based on the words found in your tweets, you have a high chance of being cancelled!</h2>
                     {% endif %}
 
                 {% else %}
