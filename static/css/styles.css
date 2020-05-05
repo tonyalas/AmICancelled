@@ -27,6 +27,9 @@ h4 {
 
 p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0 auto;
+    text-align: left;
+    display: inline;
 }
 
 #h2_white {
