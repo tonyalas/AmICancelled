@@ -28,7 +28,8 @@ h4 {
 p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0 auto;
-    text-align: left;
+    text-align: justify;
+    text-justify: auto;
     display: inline;
 }
 
