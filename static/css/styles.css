@@ -27,7 +27,6 @@ h4 {
 
 p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin: 0 auto;
     text-align: center;
 }
 
@@ -56,6 +55,11 @@ p {
 #inner_div {
     background-color: #0F5480;
     padding: 20px;
+}
+
+#text_div {
+    width: 50%;
+    margin: 0 auto;
 }
 
 #main {
