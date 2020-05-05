@@ -2,9 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
-
         <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename= 'apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename= 'favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename= 'favicon-16x16.png') }}">
@@ -12,35 +10,27 @@
         <link rel="mask-icon" href="{{ url_for('static', filename='safari-pinned-tab.svg') }}" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
-
         <script data-ad-client="ca-pub-2309537375318258" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
         <title>App Error!</title>
     </head>
 
     <body>
-
         <div id="div1">
             <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo" alt="Am I Cancelled Logo"></h1>
         </div>
-
-
         <div id="div2alt">
             <br>
             <br>
             <div id="main">
                 <div id="text_div">
-
                 <h1 style="color: red;">There has been an error!<br> Reason: {{ error_message }}</h1>
-     
                 <h4>If this is your first time seeing this message after logging in:</h4>
                 <p id="main_text">Please try refreshing this page until it works. <br>(Due to the server, it may take up to 4-5 reloads to work)</p> 
                 <h4>Otherwise:</h4> 
                 <p id="main_text">Please go back to the app homepage using the button below and try again.</p>
-                 
-                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
-                 <br>
-                 <p id="main_text">
+                <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
+                <br>
+                <p id="main_text">
                     You can also contact me at <a href="https://twitter.com/tonyalas3" target="_blank" rel="noopener noreferrer">@tonyalas3</a> if there are still issues.
                 </p>
                 </div>
@@ -49,12 +39,8 @@
 
     <footer id="footer">
         <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
-            <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">Personal Website.</a>
+            <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">My Personal Website.</a>
             </p>
     </footer>
-
     </body>
-
-    
-
 </html>    

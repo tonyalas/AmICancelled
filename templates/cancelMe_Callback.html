@@ -2,9 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
-
         <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename= 'apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename= 'favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename= 'favicon-16x16.png') }}">
@@ -12,9 +10,7 @@
         <link rel="mask-icon" href="{{ url_for('static', filename='safari-pinned-tab.svg') }}" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
-
         <script data-ad-client="ca-pub-2309537375318258" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
         <script>window.twttr = (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0],
               t = window.twttr || {};
@@ -33,23 +29,13 @@
           }(document, "script", "twitter-wjs"));</script>
 
         <title>Am I Cancelled?</title>
-        
     </head>
 
     <body>
-
         <div id="div1">
             <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo" alt="Am I Cancelled Logo"></h1>
         </div>
-        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script type="text/javascript">
-            function success() {
-                alert("Deleted Tweet! Click Back to Start Button for it to disappear.");
-            }
-        </script>
-
-
         <div id="div2alt">
             <div id="main">
                 <div id="text_div">
@@ -57,8 +43,7 @@
                 <h1 style="color: green;">Successfully authenticated @{{screen_name}}!</h1>
                 <p id="main_text">Do not refresh this page, otherwise an error may occur.</p>
                 <p id="main_text"><b>If your account is on private, please temporarily make it public and try this again.</b></p>
-                <!--<p id="main_text"><b>Protected Twitter accounts will not work with this due to how the Twitter search works.</b></p> -->
-               <br>
+                <br>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
                 <br>
                 <br>
@@ -79,7 +64,6 @@
                 <br>
             </div>
                 <div id="container"></div>
-
                 {% if naughtyCount <= 50 %}
                     {% for tweet,id,username in zipped %}
                     <br>
@@ -113,11 +97,8 @@
 
         <footer id="footer">
             <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
-                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">Personal Website.</a>
+                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">My Personal Website.</a>
                 </p>
         </footer>
     </body>
-
-    
-
 </html>

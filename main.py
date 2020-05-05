@@ -238,41 +238,5 @@ def callback():
 def internal_server_error(e):
     return render_template('cancelMe_Error.html', error_message='uncaught exception'), 500
 
-# CURRENTLY DISABLED. DOES NOT WORK NICE WITH HEROKU, BUT WORKS LOCALLY.
-@app.route('/delete_tweet', methods=["POST"])
-def delete_tweet():
-    # retrieve the index number of which delete button was clicked by the user
-    if request.method == 'POST':
-        print("post method found")
-        tweet_number = int(request.form['index'])
-        print(tweet_number)
-
-    print("clicked!")
-
-    # get the user's access tokens (and secret token) from the global dict that has it stored
-    #access_token = user_store['access_token']
-    #access_token_secret = user_store['access_token_secret']
-
-    # for debugging purposes, output the tweet that was deleted
-    print(tweets_ids_global[tweet_number])
-    # assign the chosen tweet status_id to this variable
-    deleteTweetID = tweets_ids_global[tweet_number]
-    print(tweets_global[tweet_number])
-
-    # try to delete the tweet
-    #try:
-        #r = tAPI.request('statuses/destroy/%s' % deleteTweetID)
-        #print('success!' if r.status_code == 200 else 'PROBLEM: ' + r.text)
-        #api.DestroyStatus(deleteTweetID) 
-    # if user tries to delete tweet twice, catch the error and send them to the error page
-    #except twitter.error.TwitterError as e:
-     #   print("Twitter error raised. Given reason: %s" % str(e))
-      #  return render_template('cancelMe_Error.html', error_message="Already Deleted Tweet")
-
-    return ('', 204) # do not refresh the page when the user clicks on the trash button
-
-
 if __name__ == "__main__":
     app.run(threaded=True)
-    # this is how they use the api variable in the python-twitter documentation examples
-    #api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret)
