@@ -69,14 +69,13 @@ p {
 #footer {
     background-color: #1DA1F2;
     position: relative;
-    height: 50px;
-    margin-top: -50px;
+    height: 65px;
+    margin-top: -65px;
     clear: both;
 }
 
 #footer-text {
     padding: 20px;
-    padding-bottom: 10px;
     color: white;
 }
 
