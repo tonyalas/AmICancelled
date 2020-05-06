@@ -2,63 +2,67 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename= 'apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename= 'favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename= 'favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename= 'site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <script data-ad-client="ca-pub-2309537375318258" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <title>Am I Cancelled? Start Page</title>
 </head>
 
 <body>
-
     <div id="div1">
-        
-        <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo"></h1>
+        <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo" alt="Am I Cancelled Logo"></h1>
     </div>
-
-
     <div id="div2alt">
         <div id="main">
+            <div id="inner_div">
+                <h2 id="h2_white">Get Started:</h2>
+                <a href="{{ authorize_url }}?oauth_token={{ oauth_token }}"><img src="{{ url_for('static', filename='twitter_button.png') }}" id="twitter_button" alt="Twitter Sign in Button"/></a>
+                <div id="text_div">
+                    <h2 id="h2_white">What is Am I Cancelled?</h2>
+                    <p id="main_text_white">
+                        Am I Cancelled? is a Twitter Web App that searches through a large bank of words that may be cancel-worthy, and then checks your account for them. Often times people can change over many years, so they at least deserve a second chance.
+                        <br>
+                    </p>
+                </div>
+            </div>
             <br>
-            <h2>Get Started:</h2>
-            <a href="{{ authorize_url }}?oauth_token={{ oauth_token }}"><img src="{{ url_for('static', filename='twitter_button.png') }}" id="twitter_button"/></a>
-
-            <h2>What is Am I Cancelled?</h2>
+            <div id="text_div">
+            <p>For the best experience, it's recommended to open this webpage in a full browser app such as Safari or Chrome, either on your phone or computer, separate from opening this webpage from a link (ie. Snapchat, Instagram).</p>
+            <h4>Have Word Suggestions?</h4>
             <p id="main_text">
-                Am I Cancelled? is a Twitter App that searches through a large bank of words that may have been socially acceptable<br> years ago, but no longer have a place in today's society. It goes through your entire Twitter account history searching for<br> these terms in the word bank.
-                <br>
+                If you have any words to suggest that may not be included in the search, please email me using the email link in the footer of this page, or direct message me at <a href="https://twitter.com/tonyalas3" target="_blank" rel="noopener noreferrer">@tonyalas3.</a>
             </p>
-            <h2>Why Did I Make This?</h2>
-            <p id="main_text">
-                Am I Cancelled? is a Twitter App that is meant to help those who have forgotten about old tweets <br> they have made in the past that no longer accurately reflect their beliefs anymore. <br> I can only hope that this is used by those who have good intentions.
-                <br>
-            </p>
-            <h2>Have Word Suggestions?</h2>
-            <p id="main_text">
-                If you wish to know the list of words used or have any words that may not be included in the search,<br>please email me using the email link in the footer of this page.
-            </p>
-    
-            <br>
-            <h4>* Disclaimers *</h4>
+            <h4>Additional Information</h4>
             <p id="main_text">
                 Due to the nature of the Twitter Search API, accounts that are private will not be able to use this.
-                <br>
-                I do not collect or store any of your information. All of the authentication is done by the Twitter Standard.
-                <br>
+                <br><br>
+                I do <b>not</b> collect or store any of your information. All of the authentication is done following the Twitter + OAuth standard.
+                <br><br>
                 This is my first official project, so it may not be perfect. Please contact me if there any major bugs.
-                <br>
+                <br><br>
+                You may find that some words are not cancel-worthy in the given context of the tweet. If that is the case, please ignore.
+                <br><br>
+                Ultimately, I hope this can be used responsibly.
+                <br><br>
                 Lastly, I hope you enjoy it. :)
             </p>
-
+            </div>
         </div>
     </div>
+    <script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script>
 
     <footer id="footer">
         <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
-        <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link">Visit my Personal Website.</a>
+        <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">My Personal Website.</a>
         </p>
     </footer>
 
 </body>
-
-
-
 </html>
