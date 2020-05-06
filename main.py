@@ -1,5 +1,3 @@
-# my test script for running the python script with Flask for a web app
-
 from requests_oauthlib import OAuth1Session
 import os
 import json
@@ -21,7 +19,6 @@ consumer_key = 'Wt27ZdXJqECb2JMpUCQ5uhWnD'
 consumer_secret = 'LkuUnE65DuGG5oyzbXKd7M3YEGXNLpyLVwWE33KuRvyGE6F2wV'
 
 oauth_store = {}    # a global dict used to access variables in different app.route's
-user_store = {}     # a global dict used to store the authorization variables for the delete_tweet function
 
 # this will be used for the delete tweets function
 tweets_global = []
@@ -57,8 +54,6 @@ def home():
         del tweets_ids_global[:]
     if(len(tweets_username_global) != 0):
         del tweets_username_global[:]
-    if(len(user_store) != 0):
-        user_store.clear()
 
     # return the template with the necessary variables so that the user can click on the Twitter log-in button and go to the authentication page
     return render_template('cancelMe.html', authorize_url=authorize_url, oauth_token=resource_owner_key, request_token_url=request_token_url)
@@ -104,11 +99,6 @@ def callback():
     oauth_tokens = oauth.fetch_access_token(access_token_url)
     access_token = oauth_tokens["oauth_token"]
     access_token_secret = oauth_tokens["oauth_token_secret"]
-
-    # store the user's access key and secret in the global dict
-    # this should replace the keys everytime a new user logs in 
-    user_store['access_token'] = access_token
-    user_store['access_token_secret'] = access_token_secret
 
     # ------------------- Percent Encoding ----------------
     # space = %20
