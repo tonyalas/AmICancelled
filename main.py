@@ -2,9 +2,7 @@ from requests_oauthlib import OAuth1Session
 import os
 import json
 from flask import Flask, render_template, request, url_for, jsonify
-#import twitter
 import requests
-#from TwitterAPI import TwitterAPI
 
 app = Flask(__name__)
 
