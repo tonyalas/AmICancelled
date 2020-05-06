@@ -1,55 +1,93 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static',   filename='css/styles.css') }}">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename= 'apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename= 'favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename= 'favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ url_for('static', filename= 'site.webmanifest') }}">
+        <link rel="mask-icon" href="{{ url_for('static', filename='safari-pinned-tab.svg') }}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <script data-ad-client="ca-pub-2309537375318258" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          
+            t._e = [];
+            t.ready = function(f) {
+              t._e.push(f);
+            };
+          
+            return t;
+          }(document, "script", "twitter-wjs"));</script>
+
         <title>Am I Cancelled?</title>
-        
     </head>
 
     <body>
-
         <div id="div1">
-            <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo"></h1>
+            <h1 class="header">Am I Cancelled? <img src="{{ url_for('static', filename= 'amICancelled_logo.jpg') }}" id="app_logo" alt="Am I Cancelled Logo"></h1>
         </div>
-        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script type="text/javascript">
-            function success() {
-                alert("Deleted Tweet! Click Back to Start Button for it to disappear.");
-            }
-        </script>
-
-
         <div id="div2alt">
             <div id="main">
+                <div id="text_div">
                 <br>
                 <h1 style="color: green;">Successfully authenticated @{{screen_name}}!</h1>
-               <br>
-               <br>
+                <p id="main_text">Do not refresh this page, otherwise an error may occur.</p>
+                <p id="main_text"><b>If your account is on private, please temporarily make it public and try this again.</b></p>
+                <br>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
                 <br>
                 <br>
                 {% if naughty == True %}
-                    <h1>You have {{ naughtyCount }} Naughty Tweet(s)</h1>
+                    {% if nextTokenBool == True %}
+                    <h1>You have 300+ cancel-worthy tweet(s)</h1>
                     {% else %}
-                    <h1>No Naughty Tweets for You!</h1>
+                    <h1>You have {{ naughtyCount }} cancel-worthy tweet(s)</h1>
+                    {% endif %}
+                {% else %}
+                    <h1>You are not cancelled!</h1>
                 {% endif %}
-                {% for tweet,id,username in zipped %}
-               <!-- <p> <b>@{{ username }}</b> tweeted: " {{ tweet }} "  <br> tweet url: <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer">https://twitter.com/{{username}}/status/{{id}}</a></p> 
-                <a href=# id="test"><img src="{{ url_for('static', filename='delete.png') }}" class="delete_button" style="width: 15px; height: 15px;"/></a> -->
-               <br>
-               <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
-                   <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
-                </blockquote>
-
-                <form action="{{ url_for('delete_tweet') }}" method="POST">
-                    <input type="hidden" id="index" name="index" value="{{ loop.index }}">
-                    <input type="image" name="submit" src="{{ url_for('static', filename='delete.png') }}" alt="submit" style="width: 15px; height: 15px;" onclick="success()">
-                </form>
+                {% if nextTokenBool == True %}
+                    <h3>There were more than 300 tweets found, please delete some then sign in again to get the rest.</h3>
+                {% endif %}
+                <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
+                <h4>Tweets may take time to load. If nothing loads, please use the Back to Start button and try again.</h4>
                 <br>
-                {% endfor %}
-
+            </div>
+                <div id="container"></div>
+                {% if naughtyCount <= 50 %}
+                    {% for tweet,id,username in zipped %}
+                    <blockquote class="twitter-tweet" data-lang="en" data-align="center" data-dnt="true">
+                        <p lang="en" ></p> <a href="https://twitter.com/{{username}}/status/{{id}}" target="_blank" rel="noopener noreferrer"> </a>
+                    </blockquote>
+                    <br>
+                    {% endfor %}
+                {% elif naughtyCount > 51 %}
+                    {% for tweet,id,username in zipped %}
+                    <br>
+                        <script>
+                            twttr.widgets.createTweet(
+                                '{{id}}',
+                                document.getElementById('container'),
+                                {
+                                    align: 'center'
+                                }
+                            );
+                        </script>
+                        <br>
+                    {% endfor %}
+                {% else %}
+                    
+                {% endif %}
 
             </div>
         </div>
@@ -58,11 +96,8 @@
 
         <footer id="footer">
             <p id="footer-text">Created By: Tony Alas, 2020.   <a href="mailto:tony_alas99@hotmail.com" id="email_link">Contact me via email.</a>
-                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link">Visit my Personal Website.</a>
+                <a href="http://alas11.myweb.cs.uwindsor.ca" id="email_link" target="_blank" rel="noopener noreferrer">My Personal Website.</a>
                 </p>
         </footer>
     </body>
-
-    
-
 </html>
