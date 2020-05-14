@@ -152,7 +152,8 @@ def callback():
     # catch the potential KeyError and send user to an error page
     except KeyError as e:
         print("Key Error raised. Given reason: %s" % str(e))
-        return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
+        return render_template('cancelMe_Error.html', error_message="Max Number of Requests to the Twitter Server reached.")
+        #return render_template('cancelMe_Error.html', error_message="Key Error Thrown/Hit Max Number of Requests")
     highlyOffensiveWordCount = 0
     #print(results)
     #print("just printed the results array!")
