@@ -24,8 +24,12 @@
             <div id="main">
                 <div id="text_div">
                 <h1 style="color: red;">There has been an error!<br> Reason: {{ error_message }}</h1>
+                {% if 'Max Number of Requests to the Twitter Server reached.' == error_message %}
+                <p id="main_text">This means that the amount of requests to the Twitter server has been reached. There is nothing for you to do on your end.</p>
+                {% else %}
                 <h4>If this is your first time seeing this message after logging in:</h4>
                 <p id="main_text">Please try refreshing this page until it works. (Due to the server, it may take up to 4-5 reloads to work)</p> 
+                {% endif %}
                 <h4>Otherwise:</h4> 
                 <p id="main_text">Please go back to the app homepage using the button below and try again.</p>
                 <a href="{{ url_for('home') }}"><button type="button" id="backButton">Back to Start</button></a>
