@@ -129,6 +129,9 @@ def callback():
     # the query to search for
     data = '{"query": "(gay OR faggot OR fag OR queer OR homo OR homos OR tranny OR fudgepacker OR sissy OR flamer OR twink OR dyke OR lesbo OR heshe OR shemale OR nig OR nigga OR niggas OR nigger OR nazi OR gook OR chink OR beaner OR coon OR darkie OR goy OR guido OR gypsy OR hick OR kike OR kyke OR niglet OR negro OR nigguh OR niggah OR paki OR polack OR raghead OR towelhead OR spook OR spic OR whitey OR zipperhead OR slut OR whore OR skank OR bitch OR feminazi OR cougar OR prude OR hoe OR butch OR bimbo OR hooker OR wanker OR retard OR cripple OR midget OR retarded OR psycho OR schizo OR spaz OR spastic OR tard OR downy OR kill OR suicide OR kys OR shit OR shitty OR fucking OR motherfucker OR cunt OR bastard OR asshole OR goddamn OR prick OR twat) from:' + screen_name + '", "maxResults": "301", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
 
+    # ALT LIST OF WORDS (for when i go to the free version): gay OR faggot OR homo OR nigga OR nigger OR chink OR beaner OR gypsy OR paki OR towelhead OR slut OR whore OR retard OR retarded
+    # the words above are exactly 128 characters long
+
     nextTokenBool = False
 
     # call the search API using the endpoint, data and headers parameters
