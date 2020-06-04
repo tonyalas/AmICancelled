@@ -59,8 +59,13 @@
                 {% if nextTokenBool == True %}
                     <h3>There were more than 300 tweets found, please delete some then sign in again to get the rest.</h3>
                 {% endif %}
+                
+                {% if naughty == True %}
                 <h4>Tip: You can click/tap on a tweet to bring you to it on Twitter and you can delete it from there!</h4>
                 <h4>Tweets may take time to load. If nothing loads, please use the Back to Start button and try again.</h4>
+                {% else %}
+
+                {% endif %}
                 <br>
             </div>
                 <div id="container"></div>
