@@ -49,7 +49,7 @@
                 <br>
                 {% if naughty == True %}
                     {% if nextTokenBool == True %}
-                    <h1>You have 300+ cancel-worthy tweet(s)</h1>
+                    <h1>You have 100+ cancel-worthy tweet(s)</h1>
                     {% else %}
                     <h1>You have {{ naughtyCount }} cancel-worthy tweet(s)</h1>
                     {% endif %}
@@ -57,7 +57,7 @@
                     <h1>Congratulations, you are not cancelled!</h1>
                 {% endif %}
                 {% if nextTokenBool == True %}
-                    <h3>There were more than 300 tweets found, please delete some then sign in again to get the rest.</h3>
+                    <h3>There were more than 100 tweets found, please delete some then sign in again to get the rest.</h3>
                 {% endif %}
                 
                 {% if naughty == True %}
