@@ -128,7 +128,7 @@ def callback():
     # general swear words
 
     # the query to search for
-    data = '{"query": "(gay OR faggot OR homo OR nigga OR nigger OR chink OR beaner OR gypsy OR paki OR towelhead OR slut OR whore OR retard OR retarded) from:' + screen_name + '", "maxResults": "100", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
+    data = '{"query": "(gay OR faggot OR homo OR nigga OR nigger OR chink OR slut OR whore OR retard OR retarded) from:' + screen_name + '", "maxResults": "100", "fromDate": "200603220000"}' # WORKING QUERY (TESTING MULTIPLE TERMS IN ONE REQUEST)
 
     # ALT LIST OF WORDS (for when i go to the free version): gay OR faggot OR homo OR nigga OR nigger OR chink OR beaner OR gypsy OR paki OR towelhead OR slut OR whore OR retard OR retarded
     # the words above are exactly 128 characters long
